@@ -7,7 +7,7 @@ project(Tetris)
 set(SOURCES
     src/main.cpp
     #src/Game.cpp
-    #src/Board.cpp
+    src/Board.hpp
     #src/Tetromino.cpp
 )
 
