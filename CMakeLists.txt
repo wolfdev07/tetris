@@ -16,5 +16,5 @@ set(SOURCES
 add_executable(Game ${SOURCES})
 
 # Enlazar SFML
-find_package(SFML 2.5 COMPONENTS graphics window system REQUIRED)
-target_link_libraries(Game sfml-graphics sfml-window sfml-system)
+find_package(SFML 2.5 COMPONENTS graphics window system audio REQUIRED)
+target_link_libraries(Game sfml-graphics sfml-window sfml-system sfml-audio)

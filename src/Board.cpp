@@ -1,17 +1,22 @@
+// src/Board.cpp
 #include "../include/Board.hpp"
 
-Board::Board() {
-    reset();
+Board::Board() { 
+    //srand(static_cast<unsigned int>(time(nullptr)));
 }
 
-void Board::reset() {
+void Board::reset(const sf::RenderWindow& window) {
+    float cellWidth = window.getSize().x / static_cast<float>(WIDTH);
+    float cellHeight = window.getSize().y / static_cast<float>(HEIGHT);
+    float cellSize = std::min(cellWidth, cellHeight);
+
     for (int i = 0; i < HEIGHT; ++i)
     {
         for (int j = 0; j < WIDTH; ++j)
         {
             grid[i][j] = 0;
-            cells[i][j].setSize(sf::Vector2f(20, 20));
-            cells[i][j].setPosition(j * 20, i * 20);
+            cells[i][j].setSize(sf::Vector2f(cellSize, cellSize));
+            cells[i][j].setPosition(j * cellSize, i * cellSize);
             cells[i][j].setFillColor(sf::Color(50, 50, 50));
             cells[i][j].setOutlineThickness(1);
             cells[i][j].setOutlineColor(sf::Color::Black);
