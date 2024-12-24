@@ -93,13 +93,17 @@ void Game::render() {
     window.clear();
     int colorIntensity = std::min(255, score / 10);
     window.clear(sf::Color(20, 20 + colorIntensity, 20));
-    // Dibujar el tablero
     window.draw(board);
-
+    float cellWidth = window.getSize().x / static_cast<float>(Board::WIDTH);
+    float cellHeight = window.getSize().y / static_cast<float>(Board::HEIGHT);
+    float cellSize = std::min(cellWidth, cellHeight);
     for (const auto& block : currentTetromino.getShape())
     {
-        sf::RectangleShape rect(sf::Vector2f(20, 20));
-        rect.setPosition((currentX + block.x) * 20, (currentY + block.y) * 20);
+        sf::RectangleShape rect(sf::Vector2f(cellSize, cellSize));
+        rect.setPosition(
+            (currentX + block.x) * cellSize,
+            (currentY + block.y) * cellSize
+        );
         rect.setFillColor(sf::Color(currentTetromino.getColor()));
         window.draw(rect);
     }

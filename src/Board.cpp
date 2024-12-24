@@ -1,11 +1,13 @@
 // src/Board.cpp
 #include "../include/Board.hpp"
+#include <vector>
 
 Board::Board() { 
     //srand(static_cast<unsigned int>(time(nullptr)));
 }
 
 void Board::reset(const sf::RenderWindow& window) {
+    cells.resize(HEIGHT, std::vector<sf::RectangleShape>(WIDTH));  // Correct resizing
     float cellWidth = window.getSize().x / static_cast<float>(WIDTH);
     float cellHeight = window.getSize().y / static_cast<float>(HEIGHT);
     float cellSize = std::min(cellWidth, cellHeight);
@@ -17,7 +19,7 @@ void Board::reset(const sf::RenderWindow& window) {
             grid[i][j] = 0;
             cells[i][j].setSize(sf::Vector2f(cellSize, cellSize));
             cells[i][j].setPosition(j * cellSize, i * cellSize);
-            cells[i][j].setFillColor(sf::Color(50, 50, 50));
+            cells[i][j].setFillColor(sf::Color(50, 50, 50)); // Set color here
             cells[i][j].setOutlineThickness(1);
             cells[i][j].setOutlineColor(sf::Color::Black);
         }
@@ -30,10 +32,9 @@ void Board::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     {
         for (int j = 0; j < WIDTH; ++j)
         {
-            target.draw(cells[i][j], states);
+            target.draw(cells[i][j]);
         }
     }
-    
 }
 
 bool Board::isValidPosition(int x, int y, const std::vector<sf::Vector2i>& shape) {
@@ -46,7 +47,7 @@ bool Board::isValidPosition(int x, int y, const std::vector<sf::Vector2i>& shape
         {
             return false;
         }
-        
+
         if (grid[newY][newX] != 0)
         {
             return false;
@@ -54,7 +55,7 @@ bool Board::isValidPosition(int x, int y, const std::vector<sf::Vector2i>& shape
     }
     
     return true;
-}
+};
 
 void Board::placeTetromino(int x, int y, const std::vector<sf::Vector2i>& shape, int color) {
     for (const auto& block : shape)
@@ -63,6 +64,7 @@ void Board::placeTetromino(int x, int y, const std::vector<sf::Vector2i>& shape,
         int newY = y + block.y;
         grid[newY][newX] = color; // Marca la celda con el color del tetromino
     }
+    updateCellColors();
 }
 
 int Board::clearFullLines() {
@@ -97,5 +99,23 @@ int Board::clearFullLines() {
             }
         }
     }
+    updateCellColors();
     return linesCleared;
+}
+
+void Board::updateCellColors() {
+    for (int i = 0; i < HEIGHT; ++i)
+    {
+        for (int j = 0; j < WIDTH; ++j)
+        {
+            if (grid[i][j] != 0)
+            {
+                cells[i][j].setFillColor(sf::Color(grid[i][j] * 20, grid[i][j] * 20, grid[i][j] * 20));
+            } 
+            else 
+            {
+                cells[i][j].setFillColor(sf::Color(50, 50, 50));
+            }
+        }
+    }
 }
