@@ -1,18 +1,18 @@
 cmake_minimum_required(VERSION 3.10)
-
-# Nombre del proyecto
 project(Tetris)
 
-# Agregar directorio de encabezados
+# Agregar directorios de encabezados
 include_directories(include)
 
-# Archivos fuente
+# Agregar archivos fuente
 set(SOURCES
     src/main.cpp
+    src/Game.cpp
     src/Board.cpp
+    src/Tetromino.cpp
 )
 
-# Agregar ejecutable
+# Crear el ejecutable
 add_executable(Game ${SOURCES})
 
 # Enlazar SFML
