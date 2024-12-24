@@ -4,17 +4,20 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 
+using namespace sf;
+
 class Tetromino {
 
 private:
     std::vector<sf::Vector2i> shape;
-    int color;
+    unsigned int color;
 
 public:
     Tetromino();
+    void setRandomShape();
     void setShape(const std::vector<sf::Vector2i>& newShape);
-    const std::vector<sf::Vector2i>& getShape() const;
-    int getColor() const;
+    const std::vector<sf::Vector2i>& getShape() const; // Declaración
+    unsigned int getColor() const; // Declaración
     void rotate();
 };
 

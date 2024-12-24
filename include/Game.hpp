@@ -11,8 +11,11 @@ private:
     sf::RenderWindow window;
     Board board;
     Tetromino currentTetromino;
-
     bool isRunning;
+
+    // Variables para la posición del tetromino actual
+    int currentX; // Columna en la que está el tetromino
+    int currentY; // Fila en la que está el tetromino
 
 public:
     Game();
