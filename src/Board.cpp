@@ -110,7 +110,7 @@ void Board::updateCellColors() {
         {
             if (grid[i][j] != 0)
             {
-                cells[i][j].setFillColor(sf::Color(grid[i][j] * 20, grid[i][j] * 20, grid[i][j] * 20));
+                cells[i][j].setFillColor(sf::Color(grid[i][j] * 35, grid[i][j] * 35, grid[i][j] * 35));
             } 
             else 
             {

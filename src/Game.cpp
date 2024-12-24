@@ -3,8 +3,11 @@
 
 Game::Game() 
     : window(sf::VideoMode(600, 800), "Tetris"), isRunning(true), currentX(4), currentY(0), score(0) {
-    // Centra el tetromino en la parte superior del tablero
     board.reset(window);
+    // Centra el Tetromino en el tablero
+    currentX = (Board::WIDTH / 2) - 1;
+    currentY = 0;
+
     currentTetromino.setRandomShape();
     moveSound.setBuffer(moveSoundBuffer);
 }
@@ -78,9 +81,9 @@ void Game::update() {
         {
             board.placeTetromino(currentX, currentY, currentTetromino.getShape(), currentTetromino.getColor());
             board.clearFullLines();
-            currentTetromino.setRandomShape();
-            currentX = 4;
+            currentX = (Board::WIDTH / 2) - 1;
             currentY = 0;
+            currentTetromino.setRandomShape();
             if (!board.isValidPosition(currentX, currentY, currentTetromino.getShape()))
             {
                 isRunning = false;
@@ -127,9 +130,9 @@ void Game::hardDrop() {
     score += board.clearFullLines();
 
     // Genera un nuevo Tetromino
-    currentTetromino.setRandomShape();
-    currentX = 4; // Centra el nuevo Tetromino
+    currentX = (Board::WIDTH / 2) - 1; // Centra el nuevo Tetromino
     currentY = 0;
+    currentTetromino.setRandomShape();
 
     // Terminar juego al llenar
     if (!board.isValidPosition(currentX, currentY, currentTetromino.getShape()))

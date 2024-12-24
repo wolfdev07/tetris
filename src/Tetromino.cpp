@@ -38,7 +38,6 @@ void Tetromino::rotate() {
         block.x = -block.y;
         block.y = temp;
     }
-    
 }
 
 const std::vector<sf::Vector2i>& Tetromino::getShape() const {
