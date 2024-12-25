@@ -1,5 +1,6 @@
 // include/Game.cpp
 #include "../include/Game.hpp"
+#include <iostream>
 
 Game::Game() 
     : window(sf::VideoMode(600, 800), "Tetris"), isRunning(true), currentX(4), currentY(0), score(0) {
@@ -7,9 +8,14 @@ Game::Game()
     // Centra el Tetromino en el tablero
     currentX = (Board::WIDTH / 2) - 1;
     currentY = 0;
-
     currentTetromino.setRandomShape();
-    moveSound.setBuffer(moveSoundBuffer);
+
+    if (!backgroundMusic.openFromFile("../assets/sounds/Tetris.wav"))
+    {
+        std::cerr << "Error: No se pudo cargar Tetris.mp3" << std::endl;
+    }
+    backgroundMusic.setLoop(true);  // Repetir la música indefinidamente
+    backgroundMusic.play(); // Reproducir la música
 }
 
 void Game::run() { 
@@ -64,11 +70,11 @@ void Game::processEvents() {
 void Game::update() {
     // Lógica de actualización del juego
     static int fallDelay = 0;
-    static const int FALL_SPEED = 30; //Ajustar velocidad de caída
+    int fallSpeed = std::max(60, 30 - score / 500); //Ajustar velocidad de caída
 
     fallDelay ++;
 
-    if (fallDelay >= FALL_SPEED)
+    if (fallDelay >= fallSpeed)
     {
         fallDelay = 0;
         int newX = currentX;
@@ -80,7 +86,12 @@ void Game::update() {
         } else
         {
             board.placeTetromino(currentX, currentY, currentTetromino.getShape(), currentTetromino.getColor());
-            board.clearFullLines();
+            int linesCleared = board.clearFullLines();
+            if (linesCleared > 0)
+            {
+                score += linesCleared * 100;
+
+            }
             currentX = (Board::WIDTH / 2) - 1;
             currentY = 0;
             currentTetromino.setRandomShape();

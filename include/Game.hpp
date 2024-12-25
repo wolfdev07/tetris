@@ -23,6 +23,7 @@ private:
     int score;
 
     //Audio
+    sf::Music backgroundMusic;
     sf::SoundBuffer moveSoundBuffer;
     sf::Sound moveSound;
 
