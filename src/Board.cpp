@@ -2,7 +2,7 @@
 #include "../include/Board.hpp"
 #include <vector>
 
-Board::Board() { 
+Board::Board() : position(0.f, 0.f)  {
     //srand(static_cast<unsigned int>(time(nullptr)));
 }
 

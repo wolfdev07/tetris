@@ -14,14 +14,12 @@ private:
     Board board;
     Tetromino currentTetromino;
     bool isRunning;
-
     // Variables para la posición del tetromino actual
     int currentX; // Columna en la que está el tetromino
     int currentY; // Fila en la que está el tetromino
     
     // Agregar puntaje
     int score;
-
     //Audio
     sf::Music backgroundMusic;
     sf::SoundBuffer moveSoundBuffer;
@@ -33,6 +31,7 @@ public:
     void processEvents();
     void update();
     void render();
+    void drawScorePanel();
     void hardDrop();
 };
 

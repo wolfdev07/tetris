@@ -22,6 +22,7 @@ public:
 private:
     int grid[HEIGHT][WIDTH];
     std::vector<std::vector<sf::RectangleShape>> cells;
+    sf::Vector2f position;
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };
 

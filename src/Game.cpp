@@ -3,7 +3,7 @@
 #include <iostream>
 
 Game::Game() 
-    : window(sf::VideoMode(600, 800), "Tetris"), isRunning(true), currentX(4), currentY(0), score(0) {
+    : window(sf::VideoMode(800, 800), "Tetris"), isRunning(true), currentX(4), currentY(0), score(0) {
     board.reset(window);
     // Centra el Tetromino en el tablero
     currentX = (Board::WIDTH / 2) - 1;
@@ -108,6 +108,9 @@ void Game::render() {
     int colorIntensity = std::min(255, score / 10);
     window.clear(sf::Color(20, 20 + colorIntensity, 20));
     window.draw(board);
+    // Dibujar el panel lateral
+    drawScorePanel();
+    // Dibujar el Tetromino actual
     float cellWidth = window.getSize().x / static_cast<float>(Board::WIDTH);
     float cellHeight = window.getSize().y / static_cast<float>(Board::HEIGHT);
     float cellSize = std::min(cellWidth, cellHeight);
@@ -150,4 +153,30 @@ void Game::hardDrop() {
     {
         isRunning = false;
     }
+}
+
+void Game::drawScorePanel() {
+    // Panel del fondo
+    sf::RectangleShape panelBackground(sf::Vector2f(200, 800));
+    panelBackground.setPosition(600, 0);
+    panelBackground.setFillColor(sf::Color(30, 30, 30));
+    panelBackground.setOutlineThickness(1);
+    panelBackground.setOutlineColor(sf::Color::White);
+
+    sf::Font font;
+    if (!font.loadFromFile("../assets/fonts/void_pixel-7.ttf"))
+    {
+        std::cerr << "Error: No se pudo cargar Void Pixel" << std::endl;
+    }
+
+    sf::Text scoreText;
+    scoreText.setFont(font);
+    scoreText.setString("Score: " + std::to_string(score));
+    scoreText.setCharacterSize(24);
+    scoreText.setFillColor(sf::Color::White);
+    scoreText.setPosition(620, 50);
+
+    // Dibuja en el panel
+    window.draw(panelBackground);
+    window.draw(scoreText);
 }

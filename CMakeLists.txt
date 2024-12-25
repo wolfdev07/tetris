@@ -13,8 +13,8 @@ set(SOURCES
 )
 
 # Crear el ejecutable
-add_executable(Game ${SOURCES})
+add_executable(Tetris ${SOURCES})
 
 # Enlazar SFML
 find_package(SFML 2.5 COMPONENTS graphics window system audio REQUIRED)
-target_link_libraries(Game sfml-graphics sfml-window sfml-system sfml-audio)
+target_link_libraries(Tetris sfml-graphics sfml-window sfml-system sfml-audio)
