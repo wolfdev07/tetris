@@ -7,7 +7,6 @@
 
 class Board: public sf::Drawable{
 
-
 public:
     static constexpr int WIDTH = 20;
     static constexpr int HEIGHT = 30;
@@ -17,7 +16,6 @@ public:
     void placeTetromino(int x, int y, const std::vector<sf::Vector2i>& shape, int color);
     void updateCellColors();
     int clearFullLines();
-
 
 private:
     int grid[HEIGHT][WIDTH];

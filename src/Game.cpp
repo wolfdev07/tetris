@@ -89,7 +89,7 @@ void Game::update() {
             int linesCleared = board.clearFullLines();
             if (linesCleared > 0)
             {
-                score += linesCleared * 100;
+                score += linesCleared * 10;
 
             }
             currentX = (Board::WIDTH / 2) - 1;
@@ -157,7 +157,7 @@ void Game::hardDrop() {
 
 void Game::drawScorePanel() {
     // Panel del fondo
-    sf::RectangleShape panelBackground(sf::Vector2f(200, 800));
+    sf::RectangleShape panelBackground(sf::Vector2f(600, 800));
     panelBackground.setPosition(600, 0);
     panelBackground.setFillColor(sf::Color(30, 30, 30));
     panelBackground.setOutlineThickness(1);
@@ -172,9 +172,9 @@ void Game::drawScorePanel() {
     sf::Text scoreText;
     scoreText.setFont(font);
     scoreText.setString("Score: " + std::to_string(score));
-    scoreText.setCharacterSize(24);
+    scoreText.setCharacterSize(50);
     scoreText.setFillColor(sf::Color::White);
-    scoreText.setPosition(620, 50);
+    scoreText.setPosition(620, 400);
 
     // Dibuja en el panel
     window.draw(panelBackground);
