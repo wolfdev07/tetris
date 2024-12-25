@@ -124,30 +124,25 @@ void Game::render() {
         rect.setFillColor(sf::Color(currentTetromino.getColor()));
         window.draw(rect);
     }
-
     window.display();
 }
 
 void Game::hardDrop() {
     int dropY = currentY;
-
     while (board.isValidPosition(currentX, dropY + 1, currentTetromino.getShape()))
     {
         ++dropY;
     }
-    
     // Actualizar la posición del Tetromino
     currentY = dropY;
     // Colocar el Tetronimo en el Tablero
     board.placeTetromino(currentX, currentY, currentTetromino.getShape(), currentTetromino.getColor());
     // Limpia líneas completas, si las hay
     score += board.clearFullLines();
-
     // Genera un nuevo Tetromino
     currentX = (Board::WIDTH / 2) - 1; // Centra el nuevo Tetromino
     currentY = 0;
     currentTetromino.setRandomShape();
-
     // Terminar juego al llenar
     if (!board.isValidPosition(currentX, currentY, currentTetromino.getShape()))
     {
@@ -156,8 +151,8 @@ void Game::hardDrop() {
 }
 
 void Game::drawScorePanel() {
-    // Panel del fondo
-    sf::RectangleShape panelBackground(sf::Vector2f(600, 800));
+    // Fondo del panel: 200 px de ancho y 800 px de alto
+    sf::RectangleShape panelBackground(sf::Vector2f(200, 800));
     panelBackground.setPosition(600, 0);
     panelBackground.setFillColor(sf::Color(30, 30, 30));
     panelBackground.setOutlineThickness(1);
@@ -168,7 +163,7 @@ void Game::drawScorePanel() {
     {
         std::cerr << "Error: No se pudo cargar Void Pixel" << std::endl;
     }
-
+    
     sf::Text scoreText;
     scoreText.setFont(font);
     scoreText.setString("Score: " + std::to_string(score));
@@ -176,7 +171,10 @@ void Game::drawScorePanel() {
     scoreText.setFillColor(sf::Color::White);
     scoreText.setPosition(620, 400);
 
-    // Dibuja en el panel
+    float margin = 10.f;
+    panelBackground.setPosition(600 + margin, 0);
+
+    // Dibuja el panel y el texto
     window.draw(panelBackground);
     window.draw(scoreText);
 }

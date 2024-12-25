@@ -7,10 +7,17 @@ Board::Board() : position(0.f, 0.f)  {
 }
 
 void Board::reset(const sf::RenderWindow& window) {
-    cells.resize(HEIGHT, std::vector<sf::RectangleShape>(WIDTH));  // Correct resizing
-    float cellWidth = window.getSize().x / static_cast<float>(WIDTH);
-    float cellHeight = window.getSize().y / static_cast<float>(HEIGHT);
+    cells.resize(HEIGHT, std::vector<sf::RectangleShape>(WIDTH));
+
+    // Limitar el ancho de tablero
+    float boardWidth = 600.f;
+    float boardHeight = window.getSize().y;
+    float cellWidth = boardWidth / static_cast<float>(WIDTH);
+    float cellHeight = boardHeight / static_cast<float>(HEIGHT);
     float cellSize = std::min(cellWidth, cellHeight);
+
+    // Posición inicial del tablero (alineado a la izquierda)
+    position = sf::Vector2f(0.f, 0.f);
 
     for (int i = 0; i < HEIGHT; ++i)
     {
@@ -18,13 +25,12 @@ void Board::reset(const sf::RenderWindow& window) {
         {
             grid[i][j] = 0;
             cells[i][j].setSize(sf::Vector2f(cellSize, cellSize));
-            cells[i][j].setPosition(j * cellSize, i * cellSize);
-            cells[i][j].setFillColor(sf::Color(50, 50, 50)); // Set color here
+            cells[i][j].setPosition(position.x + j * cellSize, position.y + i * cellSize);
+            cells[i][j].setFillColor(sf::Color(50, 50, 50));
             cells[i][j].setOutlineThickness(1);
             cells[i][j].setOutlineColor(sf::Color::Black);
         }
     }
-    
 }
 
 void Board::draw(sf::RenderTarget& target, sf::RenderStates states) const {
